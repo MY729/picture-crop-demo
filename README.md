@@ -3,6 +3,7 @@
 
 ## 演示地址
 
+[https://my729.github.io/picture-crop-demo/dist/#/](https://my729.github.io/picture-crop-demo/dist/#/)
 
 ## 前言
 
@@ -69,7 +70,10 @@ initCropper () {
 ```
 > 更多方法，参考官网[https://github.com/fengyuanchen/cropperjs](https://github.com/fengyuanchen/cropperjs)
 
-具体实现，可以查看组件`cropper.vue` 或 `cropper.one.vue`
+具体实现，可以查看组件`cropper.vue` 或 `cropper.one.vue`:
+
+https://github.com/MY729/picture-crop-demo/blob/master/src/components/cropper.vue  
+https://github.com/MY729/picture-crop-demo/blob/master/src/components/cropper.one.vue
 
 ## 使用canvas实现图片裁剪
 
@@ -79,6 +83,8 @@ initCropper () {
 * 监听鼠标点击、移动、松开事件
 
 canvas的isPointInPath()方法判断鼠标点击的点是否在绘制的路径内
+
+具体实现可查看组件`cropper.canvas.vue`: https://github.com/MY729/picture-crop-demo/blob/master/src/components/cropper.canvas.vue
 
 ```js
 cropImg () {
@@ -183,6 +189,8 @@ sureCrop (x, y, width, height) {
   ctx.stroke()
 }
 ```
+
+也可以直接clone项目，本地运行查看代码和效果
 
 ## Project setup
 ```
