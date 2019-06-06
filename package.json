@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "cropperjs": "^1.5.1",
+    "element-ui": "^2.9.1",
     "vue": "^2.6.10"
   },
   "devDependencies": {
