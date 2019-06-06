@@ -11,26 +11,26 @@
 * cropperjs: 1.5.1 [https://github.com/fengyuanchen/cropperjs](https://github.com/fengyuanchen/cropperjs)  
 * elementUI  [https://element.eleme.io/#/zh-CN](https://element.eleme.io/#/zh-CN)
 
-> 使用cropperjs插件 和 canvas 两种方式实现图片裁剪功能
+> 使用 cropperjs插件 和 原生canvas 两种方式实现图片裁剪功能
 
 ## 使用cropperjs插件
 
 ### 安装cropperjs
-```
+``` bash
 yarn install cropperjs
 ```
 
-### 使用
+##  初始化一个canvas元素，并在上面绘制图片
 
-* 初始化一个canvas元素，并在上面绘制图片
 ```html
 <canvas :id="data.src" ref="canvas"></canvas>
 ```
 
-```js
+``` js
 // 在canvas上绘制图片
-drawImg (href) {
+drawImg () {
   this.$nextTick(() => {
+    // 获取canvas节点
     let canvas = document.getElementById(this.data.src)
     if (canvas) {
       // 设置canvas的宽为canvas的父元素宽度，宽高比3:2
@@ -41,7 +41,7 @@ drawImg (href) {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       let img = new Image()
       img.crossOrigin = 'Anonymous'
-      img.src = href || this.data.src
+      img.src = this.data.src
       img.onload = function () {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
       }
@@ -52,15 +52,13 @@ drawImg (href) {
 > 如果遇到canvas跨域绘制图片报错，设置图片img.crossOrigin = 'Anonymous'，并且服务器响应头设置Access-Control-Allow-Origin：*
 
 
-* 创建cropperjs
+### 创建cropperjs
 ```js
 // 引入
 import Cropper from 'cropperjs'
 
 // 显示裁剪框
 initCropper () {
-  this.drawImg()
-  this.croppShow = true
   let cropper = new Cropper(this.$refs.canvas, {
     checkCrossOrigin: true,
     viewMode: 2,
@@ -68,23 +66,25 @@ initCropper () {
   })
 }
 ```
-> 更多方法，参考官网[https://github.com/fengyuanchen/cropperjs](https://github.com/fengyuanchen/cropperjs)
+> 更多方法和属性，参考官网： [https://github.com/fengyuanchen/cropperjs](https://github.com/fengyuanchen/cropperjs)
 
-具体实现，可以查看组件`cropper.vue` 或 `cropper.one.vue`:
+具体实现，可以查看源码的`cropper.vue` 或 `cropper.one.vue`组件:
 
-https://github.com/MY729/picture-crop-demo/blob/master/src/components/cropper.vue  
-https://github.com/MY729/picture-crop-demo/blob/master/src/components/cropper.one.vue
+`cropper.vue组件：`https://github.com/MY729/picture-crop-demo/blob/master/src/components/cropper.vue  
+`cropper.one.vue组件：`https://github.com/MY729/picture-crop-demo/blob/master/src/components/cropper.one.vue
 
 ## 使用canvas实现图片裁剪
 
-鼠标绘制裁剪框并移动
+> 支持鼠标绘制裁剪框，并移动裁剪框
 
+#### 思路：
 * 在canvas上绘制图片为背景  
 * 监听鼠标点击、移动、松开事件
 
-canvas的isPointInPath()方法判断鼠标点击的点是否在绘制的路径内
+> canvas的isPointInPath()方法：
+> 如果给定的点的坐标位于路径之内的话（包括路径的边）,否则返回 false
 
-具体实现可查看组件`cropper.canvas.vue`: https://github.com/MY729/picture-crop-demo/blob/master/src/components/cropper.canvas.vue
+具体实现可查看源码`cropper.canvas.vue组件`: https://github.com/MY729/picture-crop-demo/blob/master/src/components/cropper.canvas.vue
 
 ```js
 cropImg () {
@@ -107,6 +107,7 @@ cropImg () {
   let newRectY = 0 // 拖动变化后矩形开始绘制的Y坐标
   // 鼠标按下
   canvas.onmousedown = e => {
+    // 每次点击前如果有绘制好的矩形框，通过路径绘制出来，用于下面的判断
     ctx.beginPath()
     ctx.setLineDash([6, 6])
     ctx.moveTo(newRectX, newRectY)
@@ -116,6 +117,7 @@ cropImg () {
     ctx.lineTo(newRectX, newRectY)
     ctx.strokeStyle = 'green'
     ctx.stroke()
+    // 每次点击，通过判断鼠标点击的点在矩形框内还是外，来决定重新绘制还是移动矩形框
     if (ctx.isPointInPath(e.offsetX, e.offsetY)) {
       drag = true
       dragX = e.offsetX
@@ -168,6 +170,7 @@ cropImg () {
     }
   }
 },
+// 拿到裁剪后的参数，可自行处理图片
 sureCrop (x, y, width, height) {
   let canvas = document.getElementById(this.data.img_url + 'after')
   // 设置canvas的宽为canvas的父元素宽度，宽高比3:2
@@ -190,7 +193,7 @@ sureCrop (x, y, width, height) {
 }
 ```
 
-也可以直接clone项目，本地运行查看代码和效果
+#### 可以直接clone项目，本地运行查看代码和效果
 
 ## Project setup
 ```
