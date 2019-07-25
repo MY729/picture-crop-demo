@@ -27,10 +27,8 @@ export default {
       this.$nextTick(() => {
         let canvas = document.getElementById(this.data.img_url)
         if (canvas) {
-          // 设置canvas的宽为canvas的父元素宽度，宽高比3:2
-          let parentEle = canvas.parentElement
-          canvas.width = parentEle.offsetWidth
-          canvas.height = 2 * parentEle.offsetWidth / 3
+          canvas.width = 460
+          canvas.height = 460
           let ctx = canvas.getContext('2d')
           ctx.clearRect(0, 0, canvas.width, canvas.height)
           let img = new Image()

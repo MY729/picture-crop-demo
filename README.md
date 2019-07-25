@@ -72,6 +72,7 @@ initCropper () {
 
 `cropper.vue组件：`https://github.com/MY729/picture-crop-demo/blob/master/src/components/cropper.vue  
 `cropper.one.vue组件：`https://github.com/MY729/picture-crop-demo/blob/master/src/components/cropper.one.vue
+`cropper.two.vue组件：`https://github.com/MY729/picture-crop-demo/blob/master/src/components/cropper.two.vue
 
 ## 使用canvas实现图片裁剪
 

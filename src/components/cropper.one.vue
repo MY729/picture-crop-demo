@@ -1,10 +1,16 @@
 <template>
   <div class="rc-cropper-one" v-if="data.src">
     <el-col :span="12">
-      <canvas :id="data.src" ref="canvas"></canvas>
-      <div class="rc-cropper__iconCropOne">
-        <el-button type="success" size="small" @click="initCropper()" :disabled="croppShow">裁剪</el-button>
-        <el-button type="danger" size="small" @click="cancelCropper()" v-if="cropper">取消</el-button>
+      <div class="rc-cropper__canvasCrop">
+        <canvas :id="data.src" ref="canvas"></canvas>
+        <div class="rc-cropper__iconCropOne">
+          <el-tooltip content="裁剪" placement="right">
+            <el-button type="success" size="small" @click="initCropper()" :disabled="croppShow">裁剪</el-button>
+          </el-tooltip>
+          <el-tooltip content="取消裁剪" placement="right" v-if="cropper">
+            <el-button type="danger" size="small" @click="cancelCropper()" v-if="cropper"><i class="el-icon-close"></i></el-button>
+          </el-tooltip>
+        </div>
       </div>
     </el-col>
     <el-col :span="11" :offset="1">
@@ -40,10 +46,8 @@ export default {
       this.$nextTick(() => {
         let canvas = document.getElementById(this.data.src)
         if (canvas) {
-          // 设置canvas的宽为canvas的父元素宽度，宽高比3:2
-          let parentEle = canvas.parentElement
-          canvas.width = parentEle.offsetWidth
-          canvas.height = 2 * parentEle.offsetWidth / 3
+          canvas.width = 720
+          canvas.height = 480
           let ctx = canvas.getContext('2d')
           ctx.clearRect(0, 0, canvas.width, canvas.height)
           let img = new Image()
@@ -95,6 +99,11 @@ export default {
 img {
   width: 100%;
   height: 100%;
+}
+
+.rc-cropper__canvasCrop {
+  width: 720px;
+  height: 480px;
 }
 
 .rc-cropper__iconCropOne {

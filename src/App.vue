@@ -1,43 +1,30 @@
 <template>
   <div id="app">
     <h1>vue项目实现图片裁剪功能</h1>
-    <el-row>
-      <el-col :span="8" :offset="8">
-        <h2>使用cropperjs插件实现（一）</h2>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="8" :offset="8">
-        <cropper :data="slide"/>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="8" :offset="8">
-        <h2>使用cropperjs插件实现（二）</h2>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="16" :offset="4">
+    <el-tabs type="border-card" class="tabs" v-model="activeName">
+      <el-tab-pane label="使用cropperjs插件实现（一）" name="first">
+        <div class="crop1">
+          <cropper :data="slide"/>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="使用cropperjs插件实现（二）" name="second">
         <cropper-one :data="slide1"/>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="8" :offset="8">
-        <h2>使用canvas实现</h2>
-        <h3>点击裁剪，鼠标在图片上绘制裁剪区域</h3>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="16" :offset="4">
+      </el-tab-pane>
+      <el-tab-pane label="使用cropperjs插件实现（三）" name="third">
+        <h2>可以回显裁剪框并获取裁剪后的数据</h2>
+        <cropper-two v-if="activeName === 'third'" :cropOption="cropOption" @getCropImg="getCropImg(arguments)" :originImg="slide2.oriUrl" :previewImg="slide2.preUrl"/>
+      </el-tab-pane>
+      <el-tab-pane label="使用canvas实现" name="fourth">
         <cropper-canvas :data="slideCanvas"/>
-      </el-col>
-    </el-row>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script>
 import Cropper from './components/cropper.vue'
 import CropperOne from './components/cropper.one.vue'
+import CropperTwo from './components/cropper.two.vue'
 import CropperCanvas from './components/cropper.canvas.vue'
 
 export default {
@@ -45,20 +32,38 @@ export default {
   components: {
     Cropper,
     CropperOne,
+    CropperTwo,
     CropperCanvas
   },
   data () {
     return {
+      activeName: 'first',
       slide: {
         src: 'https://avatars0.githubusercontent.com/u/26196557?s=460&v=40' // 图片地址
       },
       slide1: {
         src: 'https://avatars3.githubusercontent.com/u/7911342?s=460&v=4' // 图片地址
       },
+      cropOption: {
+        offset_x: 0,
+        offset_y: 0,
+        width: 720,
+        height: 480
+      },
+      slide2: {
+        oriUrl: 'https://avatars1.githubusercontent.com/u/23690568?s=460&v=4', // 原图
+        preUrl: 'https://avatars1.githubusercontent.com/u/23690568?s=460&v=4' // 裁剪后的预览图片，初始化为原图
+      },
       slideCanvas: {
-        img_url: 'https://avatars1.githubusercontent.com/u/23690568?s=460&v=4',
-        src:  'https://avatars1.githubusercontent.com/u/23690568?s=460&v=4'// 图片地址
+        img_url: 'https://avatars3.githubusercontent.com/u/44808093?s=460&v=4',
+        src:  'https://avatars3.githubusercontent.com/u/44808093?s=460&v=4'// 图片地址
       }
+    }
+  },
+  methods: {
+    getCropImg (argument) {
+      console.log(argument)
+      this.slide2.preUrl = argument[0]
     }
   }
 }
@@ -72,5 +77,15 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.tabs {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.crop1 {
+  width: 720px;
+  height: 480px;
 }
 </style>
