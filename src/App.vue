@@ -45,10 +45,10 @@ export default {
         src: 'https://avatars3.githubusercontent.com/u/7911342?s=460&v=4' // 图片地址
       },
       cropOption: {
-        offset_x: 0,
-        offset_y: 0,
-        width: 720,
-        height: 480
+        offset_x: 10,
+        offset_y: 10,
+        width: 600,
+        height: 400
       },
       slide2: {
         oriUrl: 'https://avatars1.githubusercontent.com/u/23690568?s=460&v=4', // 原图
