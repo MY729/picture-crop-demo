@@ -3,7 +3,7 @@
 
 ## 演示地址
 
-[https://my729.github.io/picture-crop-demo/dist/#/](https://my729.github.io/picture-crop-demo/dist/#/)
+[https://my729.github.io/picture-crop-demo/dist/index.html](https://my729.github.io/picture-crop-demo/dist/index.html)
 
 ## 前言
 
