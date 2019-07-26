@@ -13,8 +13,11 @@
       <el-tab-pane label="使用cropperjs插件实现（三）" name="third">
         <h2>可以回显裁剪框并获取裁剪后的数据</h2>
         <cropper-two v-if="activeName === 'third'" :cropOption="cropOption" @getCropImg="getCropImg(arguments)" :originImg="slide2.oriUrl" :previewImg="slide2.preUrl"/>
+        <h2>裁剪后的数据：</h2>
+        <div>{{cropData}}</div>
       </el-tab-pane>
       <el-tab-pane label="使用canvas实现" name="fourth">
+        <h2>点击裁剪绘制裁剪区域</h2>
         <cropper-canvas :data="slideCanvas"/>
       </el-tab-pane>
     </el-tabs>
@@ -45,8 +48,8 @@ export default {
         src: 'https://avatars3.githubusercontent.com/u/7911342?s=460&v=4' // 图片地址
       },
       cropOption: {
-        offset_x: 10,
-        offset_y: 10,
+        offset_x: 30,
+        offset_y: 40,
         width: 600,
         height: 400
       },
@@ -54,6 +57,7 @@ export default {
         oriUrl: 'https://avatars1.githubusercontent.com/u/23690568?s=460&v=4', // 原图
         preUrl: 'https://avatars1.githubusercontent.com/u/23690568?s=460&v=4' // 裁剪后的预览图片，初始化为原图
       },
+      cropData: null,
       slideCanvas: {
         img_url: 'https://avatars3.githubusercontent.com/u/44808093?s=460&v=4',
         src:  'https://avatars3.githubusercontent.com/u/44808093?s=460&v=4'// 图片地址
@@ -62,8 +66,8 @@ export default {
   },
   methods: {
     getCropImg (argument) {
-      console.log(argument)
       this.slide2.preUrl = argument[0]
+      this.cropData = argument[1]
     }
   }
 }

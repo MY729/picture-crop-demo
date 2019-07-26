@@ -78,10 +78,10 @@ export default {
         aspectRatio: 3 / 2,
         ready: () => {
           this.cropper.setData({
-            x: Number(this.cropOption.offset_x),
-            y: Number(this.cropOption.offset_y),
-            width: Number(this.cropOption.width),
-            height: Number(this.cropOption.height)
+            x: this.cropOption.offset_x,
+            y: this.cropOption.offset_y,
+            width: this.cropOption.width,
+            height: this.cropOption.height
           })
         }
       })
