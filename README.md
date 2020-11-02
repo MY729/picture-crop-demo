@@ -7,7 +7,7 @@
 
 ## 前言
 
-* vue版本：3.6.3 [https://cli.vuejs.org/zh/](https://cli.vuejs.org/zh/)
+* vue版本：2.6.10 [https://cli.vuejs.org/zh/](https://cli.vuejs.org/zh/)
 * cropperjs: 1.5.1 [https://github.com/fengyuanchen/cropperjs](https://github.com/fengyuanchen/cropperjs)  
 * elementUI  [https://element.eleme.io/#/zh-CN](https://element.eleme.io/#/zh-CN)
 
